@@ -1,4 +1,3 @@
-import tkinter
 import tkinter as tk
 from tkinter import ttk
 from tkinter.filedialog import asksaveasfilename
@@ -72,7 +71,7 @@ class LoadingWindow(tk.Tk):
         file = create_memory_excel_file(listOfDevelopers)
         try:
             self.destroy()
-        except tkinter.TclError:
+        except tk.TclError:
             pass
         filePath = asksaveasfilename(
             initialfile="scrapedata.xlsx",

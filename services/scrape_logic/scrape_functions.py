@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 from itertools import chain
-import standardize_flat_info as std
+import standardize as std
 import unicodedata
 import re
 
