@@ -156,9 +156,9 @@ class ScrapePages(HomePage):
         htmlData = self.is_element_present(Locators.FLATS_DATA).get_attribute("innerHTML")
         startIndex = htmlData.find("var mieszkania")
         endIndex = htmlData.find("var mieszkaniaSegment")
-        flatsData = json.loads(htmlData[startIndex:endIndex].replace(";", "").replace("var mieszkania = ", ""))
+        scrapedFlatsData = json.loads(htmlData[startIndex:endIndex].replace(";", "").replace("var mieszkania = ", ""))
         formattedFlatsData = []
-        for key, value in flatsData.items():
+        for key, value in scrapedFlatsData.items():
             if not re.match("^[a-z][0-9]+$", key):
                 continue
             investName = Locators.FLAT_NAME_TO_INVESTMENT_NAME_MAPPER[key[0]]
