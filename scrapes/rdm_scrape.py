@@ -1,6 +1,8 @@
 import json
 import re
 import os
+import time
+
 import selenium.common.exceptions
 from selenium.webdriver.common.by import By
 from selenium import webdriver
@@ -68,14 +70,14 @@ class BaseActions:
         self.driver = driver
 
     def click(self, locator):
-        WebDriverWait(self.driver, 3).until(EC.visibility_of_element_located(locator)).click()
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located(locator)).click()
 
     def is_element_present(self, locator):
-        return WebDriverWait(self.driver, 3).until(EC.presence_of_element_located(locator))
+        return WebDriverWait(self.driver, 5).until(EC.presence_of_element_located(locator))
 
     def are_elements_present(self, locator):
         try:
-            elements = WebDriverWait(self.driver, 3).until(EC.presence_of_all_elements_located(locator))
+            elements = WebDriverWait(self.driver, 5).until(EC.presence_of_all_elements_located(locator))
             return elements
         except selenium.common.exceptions.TimeoutException:
             return None
@@ -113,7 +115,7 @@ class ScrapePages(HomePage):
             "name": invest.get_attribute("innerHTML"),
             "url": invest.get_attribute('href')
         }
-            for invest in self.driver.find_elements(*Locators.INVESTMENTS_DATA)]
+            for invest in self.driver.find_elements(*Locators.INVESTMENTS_DATA)[:-2]]
         return investments
 
     def click_floor_button_and_save_number(self, floorButton):
@@ -135,7 +137,7 @@ class ScrapePages(HomePage):
     def get_investment_with_all_flats_on_floors(self, investmentChoice):
 
         self.click_investment_menu_button()
-        investmentName = self.click_investment_of_user_choice_and_save_investment_name(investmentChoice)
+        investmentName = self.click_investment_of_user_choice_and_save_investment_name(investmentChoice).title()
 
         allFloorsInInvestment = self.are_elements_present(Locators.FLOOR_BUTTONS)
         floorToFlatsList = []
@@ -191,9 +193,13 @@ scrape = ScrapePages(driverTest)
 developerData = scrape.get_developer_data()
 print(developerData)
 investmentsData = scrape.get_investments_data()
-
-for x in range(1, len(investmentsData) - 1):
+print(investmentsData)
+for x in range(1, len(investmentsData) + 1):
     finalData = scrape.get_investment_with_all_flats_on_floors(x)
     scrape.click_main_page_button()
+    time.sleep(2)
+print(Locators.FLAT_NAME_TO_INVESTMENT_NAME_MAPPER)
 
 flatsData = scrape.get_flats_data()
+for flat in flatsData:
+    print(flat)

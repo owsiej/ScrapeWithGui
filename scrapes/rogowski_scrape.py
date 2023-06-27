@@ -45,5 +45,6 @@ investmentsInfo = [{
 
 developerData = get_developer_info(developerName, baseUrl)
 
-investmentsData = investmentsLinks
+investmentsData = allBuildingsInInvestments
+
 flatsData = get_investment_flats_from_api(investmentsInfo, flatsHtmlInfo)
