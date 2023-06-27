@@ -32,3 +32,7 @@ developerData = get_developer_info(developerName, baseUrl)
 investmentsData = investmentsInfo + investmentsInfo_2
 
 flatsData = flatsInfo + flatsInfo2
+
+
+
+

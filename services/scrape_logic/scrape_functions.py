@@ -121,13 +121,14 @@ def get_investment_flats(investmentInfo: list, htmlData: dict, baseUrl='') -> li
         list of dictionaries containing all info about flat
     """
     flats = []
-
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36'}
     for investment in investmentInfo:
-        response = requests.get(f"{baseUrl}{investment['url']}")
+        response = requests.get(f"{baseUrl}{investment['url']}", headers=headers)
         soup = BeautifulSoup(response.text, "html.parser")
         try:
             data = eval(f"soup{htmlData['flatTag']}")
-
+            print(data)
         except AttributeError:
             pass
         else:
