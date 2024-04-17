@@ -128,7 +128,6 @@ def get_investment_flats(investmentInfo: list, htmlData: dict, baseUrl='') -> li
         soup = BeautifulSoup(response.text, "html.parser")
         try:
             data = eval(f"soup{htmlData['flatTag']}")
-            print(data)
         except AttributeError:
             pass
         else:

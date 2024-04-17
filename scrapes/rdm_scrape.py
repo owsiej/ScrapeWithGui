@@ -189,17 +189,18 @@ class ScrapePages(HomePage):
 
 
 driverTest = ChromeDriver()
+print(driverTest.driverPath)
 scrape = ScrapePages(driverTest)
 developerData = scrape.get_developer_data()
 print(developerData)
 investmentsData = scrape.get_investments_data()
 print(investmentsData)
-for x in range(1, len(investmentsData) + 1):
-    finalData = scrape.get_investment_with_all_flats_on_floors(x)
-    scrape.click_main_page_button()
-    time.sleep(2)
-print(Locators.FLAT_NAME_TO_INVESTMENT_NAME_MAPPER)
-
-flatsData = scrape.get_flats_data()
-for flat in flatsData:
-    print(flat)
+# for x in range(1, len(investmentsData) + 1):
+#     finalData = scrape.get_investment_with_all_flats_on_floors(x)
+#     scrape.click_main_page_button()
+#     time.sleep(2)
+# print(Locators.FLAT_NAME_TO_INVESTMENT_NAME_MAPPER)
+#
+# flatsData = scrape.get_flats_data()
+# for flat in flatsData:
+#     print(flat)
